@@ -1,5 +1,5 @@
 NAME = fract_ol
-SRCS = fract_ol.c 
+SRCS = fract_ol.c fract_ol_utils.c render.c checker.c
 OBJS = $(SRCS:.c=.o)
 
 MLX_PATH = ./minilibx-linux

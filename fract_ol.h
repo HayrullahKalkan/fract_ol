@@ -42,7 +42,26 @@ typedef struct s_fract
 	double	max_im;
 }   t_fract;
 
+void	print_usage(void);
+int		close_window(t_fract *f);
+int		handle_key(int keycode, t_fract *f);
+int		handle_mouse(int button, int x, int y, t_fract *f);
+void	init_fractal(t_fract *fractal);
+
+int		mandel_much_iter(double c_re, double c_im, int max_iter);
+int		julia_much_iter(double z_re, double z_im, double c_re, double c_im);
+double	pixel_to_real(int x, int width, double min, double max);
+double	pixel_to_imag(int y, int height, double min, double max);
+void	my_mlx_pixel_put(t_fract *data, int x, int y, int color);
+
+int		get_color(int iteration, int max_iter);
 void	render_mandelbrot(t_fract *f);
 void	render_julia(t_fract *f);
+
+int		is_valid_number(char *str);
+double	ft_atod(char *str);
+void	init_mandelbrot(t_fract *f);
+void	init_julia(t_fract *f, char **av);
+void	checker(char **av, t_fract *f, int ac);
 
 #endif
