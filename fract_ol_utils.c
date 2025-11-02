@@ -54,12 +54,18 @@ int	julia_much_iter(double z_re, double z_im, double c_re, double c_im)
 
 double	pixel_to_real(int x, int width, double min, double max)
 {
-	return (min + (double)x * (max - min) / width);
+	// use width - 1 so both edges map correctly and real axis increases left->right
+	if (width <= 1)
+		return (min);
+	return (min + (double)x * (max - min) / (double)(width - 1));
 }
 
 double	pixel_to_imag(int y, int height, double min, double max)
 {
-	return (min + (double)y * (max - min) / height);
+	// invert y so screen top corresponds to max (imag up) and bottom to min
+	if (height <= 1)
+		return (min);
+	return (max - (double)y * (max - min) / (double)(height - 1));
 }
 
 void	my_mlx_pixel_put(t_fract *data, int x, int y, int color)

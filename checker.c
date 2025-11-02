@@ -54,30 +54,41 @@ int	is_valid_number(char *str)
 
 double	ft_atod(char *str)
 {
-	double	count;
-	double	sign;
-	double	a;
 	int		i;
+	double	sign;
+	double	int_part;
+	double	frac_part;
+	double	div;
 
 	i = 0;
-	count = 0;
-	sign = 1;
-	a = 0;
+	sign = 1.0;
+	int_part = 0.0;
+	frac_part = 0.0;
+	div = 1.0;
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			sign = -1;
+			sign = -1.0;
 		i++;
 	}
 	while (str[i] && str[i] != '.')
-		count = count * 10 + (str[i++] - '0');
+	{
+		if (str[i] < '0' || str[i] > '9')
+			break;
+		int_part = int_part * 10.0 + (str[i] - '0');
+		i++;
+	}
 	if (str[i] == '.')
 		i++;
-	while (str[i])
-		a = (a + (str[i++] - '0')) * 0.1;
-	return ((count + a) * sign);
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	{
+		frac_part = frac_part * 10.0 + (str[i] - '0');
+		div *= 10.0;
+		i++;
+	}
+	return ((int_part + frac_part / div) * sign);
 }
 
 void	init_mandelbrot(t_fract *f)
